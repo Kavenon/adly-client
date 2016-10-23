@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "42996188329",
+    "firebase_url": "https://adly-client.firebaseio.com",
+    "project_id": "adly-client",
+    "storage_bucket": "adly-client.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42996188329:android:8f889ce164779e28",
+        "android_client_info": {
+          "package_name": "pl.edu.agh.student.adlyclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42996188329-309ssgjnmkdae44n6hof5els96m7atbg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIxFmedRGToDmP9d-INxCA2sF8Kdijj8o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
