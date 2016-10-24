@@ -2,7 +2,7 @@ package pl.edu.agh.student.adlyclient;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.content.ContextCompat;
+
 import android.util.Log;
 
 import java.io.IOException;

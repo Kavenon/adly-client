@@ -1,15 +1,15 @@
 package pl.edu.agh.student.adlyclient;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static MainActivity instance;
-    public static MainActivity get() { return instance; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,15 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(Constants.TAG, "Key: " + key + " Value: " + value);
             }
         }
+
+        Button button=(Button)findViewById(R.id.surveyButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,SurveyActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 }

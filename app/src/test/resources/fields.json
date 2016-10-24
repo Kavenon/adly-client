@@ -1,0 +1,24 @@
+{
+  "surveyId": 1,
+  "fieldList": [
+    {
+      "fieldId": 1,
+      "fieldName": "Gender",
+      "fieldType": {
+        "type": ".EnumeratedPropertyType",
+        "possibleValues": [
+          "MALE",
+          "FEMALE"
+        ]
+      }
+    },
+    {
+      "fieldId": 1,
+      "fieldName": "Simple property",
+      "fieldType": {
+        "type": ".SimplePropertyType",
+        "simpleType": "TEXT"
+      }
+    }
+  ]
+}
