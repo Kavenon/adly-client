@@ -5,15 +5,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dkharrat.nexusdialog.FormController;
 import com.github.dkharrat.nexusdialog.FormFragment;
 import com.github.dkharrat.nexusdialog.controllers.FormSectionController;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,18 +36,44 @@ public class SurveyActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_activity);
 
-        MyFormFragment formFragment = handleRetainedFragment();
+        /*
+            @todo: get object from extras (which was previously downloaded from adly endpoint)
+        */
+        // ============== TO DELETE ==========================
+        String surveyJson = getMockJsonForm();
+        // ============== TO DELETE ==========================
+
+        SurveyFormFragment formFragment = handleRetainedFragment(surveyJson);
         setSubmitAction(formFragment);
+
 
     }
 
+    private String getMockJsonForm() {
+        List<SurveyField> fields = new ArrayList<>();
+        fields.add(new SurveyField(1,"name", new SimplePropertyType(PropertyType.TEXT)));
+        fields.add(new SurveyField(2,"gender", new EnumeratedPropertyType(GenderPropertyEnum.stringNames())));
+
+        Survey survey = new Survey();
+        survey.setSurveyId(1);
+        survey.setFieldList(fields);
+
+        ObjectMapper om = new ObjectMapper();
+        String surveyJson = "";
+        try {
+            surveyJson = om.writeValueAsString(survey);
+        } catch (JsonProcessingException e) {
+        }
+        return surveyJson;
+    }
+
     @NonNull
-    private MyFormFragment handleRetainedFragment() {
-        MyFormFragment formFragment;Fragment retainedFragment = getSupportFragmentManager().findFragmentByTag(FORM_FRAGMENT_KEY);
-        if (retainedFragment != null && retainedFragment instanceof MyFormFragment) {
-            formFragment = (MyFormFragment) retainedFragment;
+    private SurveyFormFragment handleRetainedFragment(String surveyJson) {
+        SurveyFormFragment formFragment;Fragment retainedFragment = getSupportFragmentManager().findFragmentByTag(FORM_FRAGMENT_KEY);
+        if (retainedFragment != null && retainedFragment instanceof SurveyFormFragment) {
+            formFragment = (SurveyFormFragment) retainedFragment;
         } else {
-            formFragment = new MyFormFragment();
+            formFragment = SurveyFormFragment.newInstance(surveyJson);
             getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, formFragment, FORM_FRAGMENT_KEY)
                 .commit();
@@ -53,7 +81,7 @@ public class SurveyActivity extends FragmentActivity {
         return formFragment;
     }
 
-    private void setSubmitAction(final MyFormFragment formFragment) {
+    private void setSubmitAction(final SurveyFormFragment formFragment) {
         Button submitButton = (Button) findViewById(R.id.submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +91,17 @@ public class SurveyActivity extends FragmentActivity {
         });
     }
 
-    public static class MyFormFragment extends FormFragment {
+    public static class SurveyFormFragment extends FormFragment {
+
+        public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+        public static SurveyFormFragment newInstance(String surveyJson){
+            SurveyFormFragment f = new SurveyFormFragment();
+            Bundle bdl = new Bundle(1);
+            bdl.putString("surveyJson", surveyJson);
+            f.setArguments(bdl);
+            return f;
+        }
 
         public boolean submitSurvey() {
             Log.d(Constants.TAG, "Validated");
@@ -72,26 +110,19 @@ public class SurveyActivity extends FragmentActivity {
 
         @Override
         public void initForm(FormController controller) {
-          /*
-            @todo: get object from extras (which was previously downloaded from adly endpoint)
-         */
-            // ========================================
-            List<SurveyField> fields = new ArrayList<>();
-            fields.add(new SurveyField(1,"name", new SimplePropertyType(PropertyType.TEXT)));
-            fields.add(new SurveyField(2,"gender", new EnumeratedPropertyType(GenderPropertyEnum.stringNames())));
 
-            Survey survey = new Survey();
-            survey.setSurveyId(1);
-            survey.setFieldList(fields);
-            // ========================================
+            try {
+                Survey survey = OBJECT_MAPPER.readValue(getArguments().getString("surveyJson"), Survey.class);
+                FormSectionController build = FormBuilder
+                        .aBuilder()
+                        .withContext(getContext())
+                        .withSurvey(survey)
+                        .build();
+                controller.addSection(build);
+            } catch (IOException e) {
+                Log.d(Constants.TAG, "Could not read survey from json", e);
+            }
 
-            FormSectionController build = FormBuilder
-                    .aBuilder()
-                    .withContext(getContext())
-                    .withSurvey(survey)
-                    .build();
-
-            controller.addSection(build);
         }
     }
 }
