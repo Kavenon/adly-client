@@ -97,6 +97,7 @@ public class SurveyActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 formFragment.submitSurvey();
+                finish();
             }
         });
     }
