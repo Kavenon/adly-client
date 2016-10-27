@@ -2,8 +2,10 @@ package pl.edu.agh.student.adlyclient.survey;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SurveyField {
+public class SurveyField implements Serializable {
 
     private Integer fieldId;
     private String fieldName;

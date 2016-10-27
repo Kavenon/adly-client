@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.github.dkharrat.nexusdialog.FormFragment;
 import com.github.dkharrat.nexusdialog.controllers.FormSectionController;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -37,7 +39,7 @@ import pl.edu.agh.student.adlyclient.survey.SurveyFieldResponse;
 import pl.edu.agh.student.adlyclient.survey.SurveyResponse;
 import pl.edu.agh.student.adlyclient.survey.type.GenderPropertyEnum;
 
-public class SurveyActivity extends FragmentActivity {
+public class SurveyActivity extends AppCompatActivity {
 
     private static final String FORM_FRAGMENT_KEY = "adly_survey_form";
 
@@ -46,20 +48,18 @@ public class SurveyActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_activity);
 
-        /*
-            @todo: get object from extras (which was previously downloaded from adly endpoint)
-        */
-        // ============== TO DELETE ==========================
-        String surveyJson = getMockJsonForm();
-        // ============== TO DELETE ==========================
-
-        SurveyFormFragment formFragment = handleRetainedFragment(surveyJson);
-        setSubmitAction(formFragment);
-
+        try {
+            Survey survey = JacksonHelper.fromString(getIntent().getStringExtra(Constants.SURVEY_OBJ_EXTRAS_KEY),Survey.class);
+            SurveyFormFragment formFragment = handleRetainedFragment(survey);
+            setSubmitAction(formFragment);
+        }
+        catch (IOException e){
+            finish();
+        }
 
     }
 
-    private String getMockJsonForm() {
+    private Survey getMockJsonForm() {
         List<SurveyField> fields = new ArrayList<>();
         fields.add(new SurveyField(1,"name", new SimplePropertyType(PropertyType.TEXT)));
         fields.add(new SurveyField(2,"gender", new EnumeratedPropertyType(GenderPropertyEnum.stringNames())));
@@ -68,17 +68,12 @@ public class SurveyActivity extends FragmentActivity {
         survey.setSurveyId(1);
         survey.setFieldList(fields);
 
-        ObjectMapper om = new ObjectMapper();
-        String surveyJson = "";
-        try {
-            surveyJson = om.writeValueAsString(survey);
-        } catch (JsonProcessingException e) {
-        }
-        return surveyJson;
+
+        return survey;
     }
 
     @NonNull
-    private SurveyFormFragment handleRetainedFragment(String surveyJson) {
+    private SurveyFormFragment handleRetainedFragment(Survey surveyJson) {
         SurveyFormFragment formFragment;Fragment retainedFragment = getSupportFragmentManager().findFragmentByTag(FORM_FRAGMENT_KEY);
         if (retainedFragment != null && retainedFragment instanceof SurveyFormFragment) {
             formFragment = (SurveyFormFragment) retainedFragment;
@@ -110,10 +105,10 @@ public class SurveyActivity extends FragmentActivity {
         public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
         private Survey survey;
 
-        public static SurveyFormFragment newInstance(String surveyJson){
+        public static SurveyFormFragment newInstance(Survey surveyJson){
             SurveyFormFragment f = new SurveyFormFragment();
             Bundle bdl = new Bundle(1);
-            bdl.putString("surveyJson", surveyJson);
+            bdl.putSerializable(Constants.SURVEY_OBJ_EXTRAS_KEY, surveyJson);
             f.setArguments(bdl);
             return f;
         }
@@ -193,17 +188,13 @@ public class SurveyActivity extends FragmentActivity {
         @Override
         public void initForm(FormController controller) {
 
-            try {
-                survey = OBJECT_MAPPER.readValue(getArguments().getString("surveyJson"), Survey.class);
-                FormSectionController build = FormBuilder
-                        .aBuilder()
-                        .withContext(getContext())
-                        .withSurvey(survey)
-                        .build();
-                controller.addSection(build);
-            } catch (IOException e) {
-                Log.d(Constants.TAG, "Could not read survey from json", e);
-            }
+            survey = (Survey) getArguments().getSerializable(Constants.SURVEY_OBJ_EXTRAS_KEY);
+            FormSectionController build = FormBuilder
+                    .aBuilder()
+                    .withContext(getContext())
+                    .withSurvey(survey)
+                    .build();
+            controller.addSection(build);
 
         }
     }

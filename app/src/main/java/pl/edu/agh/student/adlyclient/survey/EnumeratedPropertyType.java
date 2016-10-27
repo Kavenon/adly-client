@@ -2,10 +2,11 @@ package pl.edu.agh.student.adlyclient.survey;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EnumeratedPropertyType implements IPropertyType {
+public class EnumeratedPropertyType implements IPropertyType, Serializable {
 
     private List<String> possibleValues;
 

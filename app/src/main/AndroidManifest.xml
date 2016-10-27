@@ -30,6 +30,7 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
+        <receiver android:name=".notification.NotificationClickedReceiver"/>
 
     </application>
 

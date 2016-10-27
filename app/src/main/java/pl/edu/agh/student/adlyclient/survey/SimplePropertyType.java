@@ -2,8 +2,10 @@ package pl.edu.agh.student.adlyclient.survey;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SimplePropertyType implements IPropertyType {
+public class SimplePropertyType implements IPropertyType, Serializable {
 
     private PropertyType simpleType;
 
