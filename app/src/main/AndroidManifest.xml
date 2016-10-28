@@ -11,24 +11,24 @@
 
         <meta-data android:name="kontakt.io.API_KEY" android:value="@string/kontakt_io_api_key" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SurveyActivity" />
+        <activity android:name=".activity.SurveyActivity" />
 
         <service
-            android:name=".AdlyFirebaseMessagingService">
+            android:name=".fcm.AdlyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
-            android:name=".AdlyFirebaseInstanceIDService">
+            android:name=".fcm.AdlyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
@@ -36,7 +36,7 @@
 
         <receiver android:name=".notification.NotificationClickedReceiver"/>
         <service android:name="com.kontakt.sdk.android.ble.service.ProximityService" android:exported="false"/>
-        <service android:name=".BeaconMonitorService" android:exported="false"/>
+        <service android:name=".beacon.BeaconMonitorService" android:exported="false"/>
     </application>
 
 

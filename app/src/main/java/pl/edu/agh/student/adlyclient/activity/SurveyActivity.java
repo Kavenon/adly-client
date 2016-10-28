@@ -1,43 +1,38 @@
-package pl.edu.agh.student.adlyclient;
+package pl.edu.agh.student.adlyclient.activity;
 
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dkharrat.nexusdialog.FormController;
 import com.github.dkharrat.nexusdialog.FormFragment;
 import com.github.dkharrat.nexusdialog.controllers.FormSectionController;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import pl.edu.agh.student.adlyclient.survey.EnumeratedPropertyType;
+import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.JacksonHelper;
+import pl.edu.agh.student.adlyclient.R;
+import pl.edu.agh.student.adlyclient.UuidService;
 import pl.edu.agh.student.adlyclient.survey.FormBuilder;
-import pl.edu.agh.student.adlyclient.survey.PropertyType;
-import pl.edu.agh.student.adlyclient.survey.SimplePropertyType;
 import pl.edu.agh.student.adlyclient.survey.Survey;
 import pl.edu.agh.student.adlyclient.survey.SurveyField;
 import pl.edu.agh.student.adlyclient.survey.SurveyFieldResponse;
 import pl.edu.agh.student.adlyclient.survey.SurveyResponse;
-import pl.edu.agh.student.adlyclient.survey.type.GenderPropertyEnum;
 
 public class SurveyActivity extends AppCompatActivity {
 
@@ -57,19 +52,6 @@ public class SurveyActivity extends AppCompatActivity {
             finish();
         }
 
-    }
-
-    private Survey getMockJsonForm() {
-        List<SurveyField> fields = new ArrayList<>();
-        fields.add(new SurveyField(1,"name", new SimplePropertyType(PropertyType.TEXT)));
-        fields.add(new SurveyField(2,"gender", new EnumeratedPropertyType(GenderPropertyEnum.stringNames())));
-
-        Survey survey = new Survey();
-        survey.setSurveyId(1);
-        survey.setFieldList(fields);
-
-
-        return survey;
     }
 
     @NonNull
@@ -178,7 +160,7 @@ public class SurveyActivity extends AppCompatActivity {
 
         private Request buildRequest(RequestBody requestBody) {
             return new Request.Builder()
-                                .url(Constants.SURVEY_URL)
+                                .url(R.string.adly_url + Constants.SURVEY_URL)
                                 .post(requestBody)
                                 .build();
         }

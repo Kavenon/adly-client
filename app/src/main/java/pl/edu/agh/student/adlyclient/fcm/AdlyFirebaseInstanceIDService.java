@@ -1,4 +1,4 @@
-package pl.edu.agh.student.adlyclient;
+package pl.edu.agh.student.adlyclient.fcm;
 
 import android.util.Log;
 
@@ -10,6 +10,9 @@ import java.io.IOException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import pl.edu.agh.student.adlyclient.R;
+import pl.edu.agh.student.adlyclient.UuidService;
+import pl.edu.agh.student.adlyclient.config.Constants;
 
 public class AdlyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
@@ -29,7 +32,7 @@ public class AdlyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     private String sendToken(String uuid, String token){
         try {
             Request request = new Request.Builder()
-                    .url(Constants.TOKEN_REQUEST_URL + "?uuid=" + uuid + "&token=" + token)
+                    .url(R.string.adly_url + Constants.TOKEN_REQUEST_URL + "?uuid=" + uuid + "&token=" + token)
                     .get()
                     .build();
 

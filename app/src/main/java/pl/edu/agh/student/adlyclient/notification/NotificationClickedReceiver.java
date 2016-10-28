@@ -8,7 +8,7 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
-import pl.edu.agh.student.adlyclient.Constants;
+import pl.edu.agh.student.adlyclient.config.Constants;
 import pl.edu.agh.student.adlyclient.notification.handlers.SimpleNotificationHandler;
 import pl.edu.agh.student.adlyclient.notification.handlers.SurveyFormNotificationHandler;
 import pl.edu.agh.student.adlyclient.notification.handlers.UrlNotificationHandler;

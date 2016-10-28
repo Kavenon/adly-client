@@ -1,13 +1,11 @@
-package pl.edu.agh.student.adlyclient;
+package pl.edu.agh.student.adlyclient.beacon;
 
 import android.app.Service;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.kontakt.sdk.android.ble.configuration.ScanPeriod;
 import com.kontakt.sdk.android.ble.connection.OnServiceReadyListener;
 import com.kontakt.sdk.android.ble.manager.ProximityManager;
 import com.kontakt.sdk.android.ble.manager.ProximityManagerContract;
@@ -17,16 +15,15 @@ import com.kontakt.sdk.android.common.log.LogLevel;
 import com.kontakt.sdk.android.common.profile.IBeaconDevice;
 import com.kontakt.sdk.android.common.profile.IBeaconRegion;
 
-import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.Request;
+import pl.edu.agh.student.adlyclient.BuildConfig;
+import pl.edu.agh.student.adlyclient.R;
+import pl.edu.agh.student.adlyclient.UuidService;
+import pl.edu.agh.student.adlyclient.config.Constants;
 import pl.edu.agh.student.adlyclient.networking.AsyncGet;
 
 public class BeaconMonitorService extends Service {
@@ -75,7 +72,7 @@ public class BeaconMonitorService extends Service {
 
 
                     Request request = new Request.Builder()
-                            .url(Constants.BEACON_SYNC_REQUEST_URL +
+                            .url(R.string.adly_url + Constants.BEACON_SYNC_REQUEST_URL +
                                     "?uuid=" + UuidService.getInstance(getApplicationContext()).getUuid() +
                                     "&uid=" + closest.getUniqueId() +
                                     "&major=" + closest.getMajor() +

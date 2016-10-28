@@ -1,4 +1,4 @@
-package pl.edu.agh.student.adlyclient;
+package pl.edu.agh.student.adlyclient.helpers;
 
 import android.util.Log;
 
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Map;
 
+import pl.edu.agh.student.adlyclient.config.Constants;
 import pl.edu.agh.student.adlyclient.survey.Survey;
 
 public class JacksonHelper {

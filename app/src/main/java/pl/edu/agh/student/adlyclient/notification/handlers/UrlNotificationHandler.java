@@ -1,13 +1,11 @@
 package pl.edu.agh.student.adlyclient.notification.handlers;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-import pl.edu.agh.student.adlyclient.Constants;
+import pl.edu.agh.student.adlyclient.config.Constants;
 import pl.edu.agh.student.adlyclient.notification.INotificationHandler;
-import pl.edu.agh.student.adlyclient.notification.Notification;
 import pl.edu.agh.student.adlyclient.notification.payload.UrlNotificationPayload;
 
 public class UrlNotificationHandler extends RemotePayloadDependendHandler implements INotificationHandler {

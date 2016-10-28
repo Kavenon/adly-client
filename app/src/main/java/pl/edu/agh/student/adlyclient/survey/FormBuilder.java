@@ -9,10 +9,7 @@ import com.github.dkharrat.nexusdialog.controllers.FormSectionController;
 import com.github.dkharrat.nexusdialog.controllers.LabeledFieldController;
 import com.github.dkharrat.nexusdialog.controllers.SelectionController;
 
-import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
-
-import pl.edu.agh.student.adlyclient.Constants;
+import pl.edu.agh.student.adlyclient.config.Constants;
 
 public class FormBuilder {
 

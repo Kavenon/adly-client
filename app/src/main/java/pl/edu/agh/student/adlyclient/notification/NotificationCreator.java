@@ -11,9 +11,8 @@ import android.util.Log;
 
 import com.google.firebase.messaging.RemoteMessage;
 
-import pl.edu.agh.student.adlyclient.Constants;
-import pl.edu.agh.student.adlyclient.JacksonHelper;
-import pl.edu.agh.student.adlyclient.MainActivity;
+import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.JacksonHelper;
 import pl.edu.agh.student.adlyclient.R;
 
 public class NotificationCreator {

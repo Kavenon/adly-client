@@ -1,16 +1,11 @@
 package pl.edu.agh.student.adlyclient.notification.handlers;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
-import java.lang.reflect.InvocationHandler;
-
-import pl.edu.agh.student.adlyclient.Constants;
-import pl.edu.agh.student.adlyclient.JacksonHelper;
-import pl.edu.agh.student.adlyclient.SurveyActivity;
+import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.JacksonHelper;
+import pl.edu.agh.student.adlyclient.activity.SurveyActivity;
 import pl.edu.agh.student.adlyclient.notification.INotificationHandler;
-import pl.edu.agh.student.adlyclient.notification.Notification;
 import pl.edu.agh.student.adlyclient.survey.Survey;
 
 public class SurveyFormNotificationHandler extends RemotePayloadDependendHandler implements INotificationHandler {

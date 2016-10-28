@@ -11,7 +11,8 @@ import java.io.IOException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import pl.edu.agh.student.adlyclient.Constants;
+import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.R;
 import pl.edu.agh.student.adlyclient.notification.Notification;
 
 public abstract class RemotePayloadDependendHandler {
@@ -41,7 +42,7 @@ public abstract class RemotePayloadDependendHandler {
         private String getPayload(Long notificationId) {
             try {
                 Request request = new Request.Builder()
-                        .url(Constants.PAYLOAD_REQUEST_URL + "?_anid=" + notificationId)
+                        .url(R.string.adly_url + Constants.PAYLOAD_REQUEST_URL + "?_anid=" + notificationId)
                         .get()
                         .build();
 

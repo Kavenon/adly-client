@@ -11,6 +11,8 @@ import java.util.UUID;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.SharedPreferenceHelper;
 
 public class UuidService {
 
@@ -79,7 +81,7 @@ public class UuidService {
     private String sendUuid(String uuid){
         try {
             Request request = new Request.Builder()
-                    .url(Constants.BEACON_SYNC_REQUEST_URL + "?uuid=" + uuid)
+                    .url(R.string.adly_url + Constants.UUID_REQUEST_URL + "?uuid=" + uuid)
                     .get()
                     .build();
 

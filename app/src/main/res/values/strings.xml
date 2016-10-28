@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">AdlyClient</string>
+    <string name="app_name">Adly.io</string>
     <string name="kontakt_io_api_key">kYCKttUjZWnlADqMdazQQmZfHXejklND</string>
     <integer name="beacon_period_milis">10000</integer>
+    <string name="adly_url">http://10.0.0.2:8080</string>
+    <color name="white">#FFFFFF</color>
 </resources>
