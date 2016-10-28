@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AdlyClient</string>
+    <string name="kontakt_io_api_key">kYCKttUjZWnlADqMdazQQmZfHXejklND</string>
+    <integer name="beacon_period_milis">10000</integer>
 </resources>

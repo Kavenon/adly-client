@@ -79,7 +79,7 @@ public class UuidService {
     private String sendUuid(String uuid){
         try {
             Request request = new Request.Builder()
-                    .url(Constants.UUID_REQUEST_URL + "?uuid=" + uuid)
+                    .url(Constants.BEACON_SYNC_REQUEST_URL + "?uuid=" + uuid)
                     .get()
                     .build();
 
