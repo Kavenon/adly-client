@@ -19,6 +19,11 @@ public class AdlyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     private final OkHttpClient client = new OkHttpClient();
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    @Override
     public void onTokenRefresh() {
 
         String token = FirebaseInstanceId.getInstance().getToken();

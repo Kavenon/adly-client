@@ -17,9 +17,9 @@ public class NotificationClickedReceiver extends BroadcastReceiver {
 
     private static Map<NotificationType, INotificationHandler> handlers = new HashMap<>();
     static {
-        handlers.put(NotificationType.S, new SimpleNotificationHandler());
+        handlers.put(NotificationType.P, new SimpleNotificationHandler());
         handlers.put(NotificationType.U, new UrlNotificationHandler());
-        handlers.put(NotificationType.F, new SurveyFormNotificationHandler());
+        handlers.put(NotificationType.S, new SurveyFormNotificationHandler());
     }
     @Override
     public void onReceive(Context context, Intent intent) {
