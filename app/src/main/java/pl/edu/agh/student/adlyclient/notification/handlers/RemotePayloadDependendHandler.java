@@ -42,7 +42,7 @@ public abstract class RemotePayloadDependendHandler {
         private String getPayload(Long notificationId) {
             try {
                 Request request = new Request.Builder()
-                        .url(R.string.adly_url + Constants.PAYLOAD_REQUEST_URL + "?_anid=" + notificationId)
+                        .url(context.getString(R.string.adly_url) + Constants.PAYLOAD_REQUEST_URL + "?_anid=" + notificationId)
                         .get()
                         .build();
 

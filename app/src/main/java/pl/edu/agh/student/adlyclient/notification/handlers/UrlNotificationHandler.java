@@ -15,6 +15,7 @@ public class UrlNotificationHandler extends RemotePayloadDependendHandler implem
 
         Uri url = Uri.parse(((UrlNotificationPayload) object).getUrl());
         Intent intent = new Intent(Intent.ACTION_VIEW, url);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (intent.resolveActivity(context.getPackageManager()) != null) {
             context.startActivity(intent);
         }

@@ -1,6 +1,7 @@
 package pl.edu.agh.student.adlyclient.activity;
 
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -60,7 +61,7 @@ public class SurveyActivity extends AppCompatActivity {
         if (retainedFragment != null && retainedFragment instanceof SurveyFormFragment) {
             formFragment = (SurveyFormFragment) retainedFragment;
         } else {
-            formFragment = SurveyFormFragment.newInstance(surveyJson);
+            formFragment = SurveyFormFragment.newInstance(surveyJson,getApplicationContext());
             getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, formFragment, FORM_FRAGMENT_KEY)
                 .commit();
@@ -86,12 +87,14 @@ public class SurveyActivity extends AppCompatActivity {
         private final OkHttpClient client = new OkHttpClient();
         public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
         private Survey survey;
+        private Context context;
 
-        public static SurveyFormFragment newInstance(Survey surveyJson){
+        public static SurveyFormFragment newInstance(Survey surveyJson, Context context){
             SurveyFormFragment f = new SurveyFormFragment();
             Bundle bdl = new Bundle(1);
             bdl.putSerializable(Constants.SURVEY_OBJ_EXTRAS_KEY, surveyJson);
             f.setArguments(bdl);
+            f.context = context;
             return f;
         }
 
@@ -160,7 +163,7 @@ public class SurveyActivity extends AppCompatActivity {
 
         private Request buildRequest(RequestBody requestBody) {
             return new Request.Builder()
-                                .url(R.string.adly_url + Constants.SURVEY_URL)
+                                .url(context.getString(R.string.adly_url) + Constants.SURVEY_URL)
                                 .post(requestBody)
                                 .build();
         }

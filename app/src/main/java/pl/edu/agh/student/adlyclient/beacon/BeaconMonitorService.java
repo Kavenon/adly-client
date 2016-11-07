@@ -34,7 +34,7 @@ public class BeaconMonitorService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        Resources r = getResources();
+        final Resources r = getResources();
         beaconSyncTime = r.getInteger(R.integer.beacon_period_milis);
 
         KontaktSDK.initialize(getApplicationContext())
@@ -64,15 +64,19 @@ public class BeaconMonitorService extends Service {
 
                 IBeaconDevice closest = Collections.min(iBeacons, comparator);
 
-
+                if(closest.getDistance() > r.getInteger(R.integer.beacon_minimum_distance)){
+                    Log.i(Constants.TAG, "Closest beacon is too far " + closest.getDistance() + " " + closest.getUniqueId());
+                    return;
+                }
 
                 if(!closest.getUniqueId().equals(lastUid) || System.currentTimeMillis() - lastUidTime > beaconSyncTime) {
+
                     lastUid = closest.getUniqueId();
                     lastUidTime = System.currentTimeMillis();
 
 
                     Request request = new Request.Builder()
-                            .url(R.string.adly_url + Constants.BEACON_SYNC_REQUEST_URL +
+                            .url(getApplicationContext().getString(R.string.adly_url) + Constants.BEACON_SYNC_REQUEST_URL +
                                     "?uuid=" + UuidService.getInstance(getApplicationContext()).getUuid() +
                                     "&uid=" + closest.getUniqueId() +
                                     "&major=" + closest.getMajor() +

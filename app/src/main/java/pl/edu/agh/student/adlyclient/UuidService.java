@@ -1,6 +1,7 @@
 package pl.edu.agh.student.adlyclient;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import android.util.Log;
@@ -11,8 +12,13 @@ import java.util.UUID;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import pl.edu.agh.student.adlyclient.activity.SurveyActivity;
 import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.JacksonHelper;
 import pl.edu.agh.student.adlyclient.helpers.SharedPreferenceHelper;
+import pl.edu.agh.student.adlyclient.networking.AsyncGet;
+import pl.edu.agh.student.adlyclient.survey.Survey;
+import pl.edu.agh.student.adlyclient.survey.WelcomeSurveyService;
 
 public class UuidService {
 
@@ -74,6 +80,7 @@ public class UuidService {
         @Override
         protected void onPostExecute(String response) {
             Log.d(Constants.TAG, "Register uuid success response: " + response);
+            WelcomeSurveyService.execute(context);
         }
 
     }
@@ -81,7 +88,7 @@ public class UuidService {
     private String sendUuid(String uuid){
         try {
             Request request = new Request.Builder()
-                    .url(R.string.adly_url + Constants.UUID_REQUEST_URL + "?uuid=" + uuid)
+                    .url(context.getString(R.string.adly_url) + Constants.UUID_REQUEST_URL + "?uuid=" + uuid)
                     .get()
                     .build();
 

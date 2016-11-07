@@ -25,7 +25,7 @@ public class AsyncGet {
 
             @Override
             protected void onPostExecute(String response) {
-                Log.d(Constants.TAG, "Register uuid success response: " + response);
+                Log.d(Constants.TAG, "Success response: " + response);
             }
 
         }.execute(request);

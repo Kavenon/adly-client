@@ -19,7 +19,7 @@ public class NotificationClickedReceiver extends BroadcastReceiver {
     static {
         handlers.put(NotificationType.P, new SimpleNotificationHandler());
         handlers.put(NotificationType.U, new UrlNotificationHandler());
-        handlers.put(NotificationType.S, new SurveyFormNotificationHandler());
+        handlers.put(NotificationType.F, new SurveyFormNotificationHandler());
     }
     @Override
     public void onReceive(Context context, Intent intent) {

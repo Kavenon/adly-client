@@ -37,7 +37,7 @@ public class AdlyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     private String sendToken(String uuid, String token){
         try {
             Request request = new Request.Builder()
-                    .url(R.string.adly_url + Constants.TOKEN_REQUEST_URL + "?uuid=" + uuid + "&token=" + token)
+                    .url(getApplicationContext().getString(R.string.adly_url) + Constants.TOKEN_REQUEST_URL + "?uuid=" + uuid + "&token=" + token)
                     .get()
                     .build();
 
