@@ -7,7 +7,6 @@ public class Notification implements Serializable {
     private Long id;
     private String title;
     private String text;
-    private NotificationType type;
 
     public Notification() {
     }
@@ -36,11 +35,4 @@ public class Notification implements Serializable {
         this.title = title;
     }
 
-    public NotificationType getType() {
-        return type;
-    }
-
-    public void setType(NotificationType type) {
-        this.type = type;
-    }
 }

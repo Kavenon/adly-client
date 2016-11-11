@@ -6,12 +6,13 @@ import java.lang.reflect.InvocationHandler;
 
 import pl.edu.agh.student.adlyclient.notification.INotificationHandler;
 import pl.edu.agh.student.adlyclient.notification.Notification;
+import pl.edu.agh.student.adlyclient.notification.payload.RemotePayload;
 
 public class SimpleNotificationHandler implements INotificationHandler {
 
     @Override
-    public void handle(Notification notification, Context context) {
-        // do nothing
+    public void handle(RemotePayload remotePayload, Context context) {
+
     }
 
 }
