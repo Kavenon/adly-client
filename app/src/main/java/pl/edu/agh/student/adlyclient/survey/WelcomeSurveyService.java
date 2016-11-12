@@ -11,6 +11,7 @@ import okhttp3.Response;
 import pl.edu.agh.student.adlyclient.R;
 import pl.edu.agh.student.adlyclient.activity.SurveyActivity;
 import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.SharedPreferenceHelper;
 
 public class WelcomeSurveyService {
 
@@ -47,6 +48,7 @@ public class WelcomeSurveyService {
             @Override
             protected void onPostExecute(String surveyJson) {
                 if(surveyJson != null){
+                    SharedPreferenceHelper.setSharedPreferenceBoolean(context, Constants.WELCOME_SURVEY_STAT, true);
                     Intent i = new Intent();
                     i.setClass(context, SurveyActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

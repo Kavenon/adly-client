@@ -18,6 +18,8 @@ import pl.edu.agh.student.adlyclient.beacon.BeaconMonitorService;
 import pl.edu.agh.student.adlyclient.R;
 import pl.edu.agh.student.adlyclient.UuidService;
 import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.SharedPreferenceHelper;
+import pl.edu.agh.student.adlyclient.survey.WelcomeSurveyService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         permissions();
 
         UuidService.getInstance(getApplicationContext());
+
+        if(!SharedPreferenceHelper.getSharedPreferenceBoolean(getApplicationContext(), Constants.WELCOME_SURVEY_STAT, false)){
+            WelcomeSurveyService.execute(getApplicationContext());
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

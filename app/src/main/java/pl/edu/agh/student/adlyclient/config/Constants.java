@@ -18,4 +18,5 @@ public interface Constants {
 
     String SURVEY_CLIENT_URL = "/profile/survey/client";
     Integer welcomeSurveyId = 32; // todo: read system surveys?
+    String WELCOME_SURVEY_STAT = "adly.welcome.survey.stat";
 }
