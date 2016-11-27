@@ -38,7 +38,7 @@ public class FormBuilder {
         assert context != null;
         assert survey != null;
 
-        FormSectionController section = new FormSectionController(context, "Answer this questions");
+        FormSectionController section = new FormSectionController(context, "Pytania");
 
         for (SurveyField surveyField : survey.getFieldList()) {
             try {
