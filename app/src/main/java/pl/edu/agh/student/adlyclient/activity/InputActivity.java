@@ -56,7 +56,6 @@ public class InputActivity extends Activity {
         });
 
         fullScreen();
-        permissions();
 
     }
 
@@ -64,28 +63,4 @@ public class InputActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
-    private void permissions() {
-        if (checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION,getApplicationContext(),InputActivity.this)) {
-            Intent intent = new Intent(this, BeaconMonitorService.class);
-            startService(intent);
-        }
-        else {
-            requestPermission(android.Manifest.permission.ACCESS_FINE_LOCATION,0,getApplicationContext(),InputActivity.this);
-        }
-    }
-
-    public void requestPermission(String strPermission, int perCode, Context _c, Activity _a){
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(_a,strPermission)){
-            Toast.makeText(getApplicationContext(),"Location permission required for beacons",Toast.LENGTH_LONG).show();
-        } else {
-            ActivityCompat.requestPermissions(_a,new String[]{strPermission},perCode);
-        }
-
-    }
-
-    public boolean checkPermission(String strPermission,Context _c,Activity _a){
-        int result = ContextCompat.checkSelfPermission(_c, strPermission);
-        return result == PackageManager.PERMISSION_GRANTED;
-    }
 }
