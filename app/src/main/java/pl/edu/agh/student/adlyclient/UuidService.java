@@ -14,6 +14,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import pl.edu.agh.student.adlyclient.activity.SurveyActivity;
 import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.AdlyUrlHelper;
 import pl.edu.agh.student.adlyclient.helpers.JacksonHelper;
 import pl.edu.agh.student.adlyclient.helpers.SharedPreferenceHelper;
 import pl.edu.agh.student.adlyclient.networking.AsyncGet;
@@ -88,7 +89,7 @@ public class UuidService {
     private String sendUuid(String uuid){
         try {
             Request request = new Request.Builder()
-                    .url(context.getString(R.string.adly_url) + Constants.UUID_REQUEST_URL + "?uuid=" + uuid)
+                    .url(AdlyUrlHelper.getEndpoint(context) + Constants.UUID_REQUEST_URL + "?uuid=" + uuid)
                     .get()
                     .build();
 

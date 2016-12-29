@@ -24,6 +24,7 @@ import pl.edu.agh.student.adlyclient.BuildConfig;
 import pl.edu.agh.student.adlyclient.R;
 import pl.edu.agh.student.adlyclient.UuidService;
 import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.AdlyUrlHelper;
 import pl.edu.agh.student.adlyclient.networking.AsyncGet;
 
 public class BeaconMonitorService extends Service {
@@ -76,7 +77,7 @@ public class BeaconMonitorService extends Service {
 
 
                     Request request = new Request.Builder()
-                            .url(getApplicationContext().getString(R.string.adly_url) + Constants.BEACON_SYNC_REQUEST_URL +
+                            .url(AdlyUrlHelper.getEndpoint(getApplicationContext()) + Constants.BEACON_SYNC_REQUEST_URL +
                                     "?uuid=" + UuidService.getInstance(getApplicationContext()).getUuid() +
                                     "&uid=" + closest.getUniqueId() +
                                     "&major=" + closest.getMajor() +

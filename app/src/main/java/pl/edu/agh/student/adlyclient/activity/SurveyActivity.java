@@ -26,6 +26,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.AdlyUrlHelper;
 import pl.edu.agh.student.adlyclient.helpers.JacksonHelper;
 import pl.edu.agh.student.adlyclient.R;
 import pl.edu.agh.student.adlyclient.UuidService;
@@ -163,7 +164,7 @@ public class SurveyActivity extends AppCompatActivity {
 
         private Request buildRequest(RequestBody requestBody) {
             return new Request.Builder()
-                                .url(context.getString(R.string.adly_url) + Constants.SURVEY_URL)
+                                .url(AdlyUrlHelper.getEndpoint(context) + Constants.SURVEY_URL)
                                 .post(requestBody)
                                 .build();
         }

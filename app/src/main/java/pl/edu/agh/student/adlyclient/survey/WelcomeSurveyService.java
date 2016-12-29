@@ -11,6 +11,7 @@ import okhttp3.Response;
 import pl.edu.agh.student.adlyclient.R;
 import pl.edu.agh.student.adlyclient.activity.SurveyActivity;
 import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.AdlyUrlHelper;
 import pl.edu.agh.student.adlyclient.helpers.SharedPreferenceHelper;
 
 public class WelcomeSurveyService {
@@ -25,7 +26,7 @@ public class WelcomeSurveyService {
 
                 try {
                     Request request = new Request.Builder()
-                            .url(context.getString(R.string.adly_url) + Constants.SURVEY_CLIENT_URL +
+                            .url(AdlyUrlHelper.getEndpoint(context) + Constants.SURVEY_CLIENT_URL +
                                     "?id=" + params[0])
                             .build();
                     Response response = client.newCall(request).execute();

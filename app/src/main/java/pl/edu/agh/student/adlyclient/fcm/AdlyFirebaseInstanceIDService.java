@@ -13,6 +13,7 @@ import okhttp3.Response;
 import pl.edu.agh.student.adlyclient.R;
 import pl.edu.agh.student.adlyclient.UuidService;
 import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.AdlyUrlHelper;
 
 public class AdlyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
@@ -37,7 +38,7 @@ public class AdlyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     private String sendToken(String uuid, String token){
         try {
             Request request = new Request.Builder()
-                    .url(getApplicationContext().getString(R.string.adly_url) + Constants.TOKEN_REQUEST_URL + "?uuid=" + uuid + "&token=" + token)
+                    .url(AdlyUrlHelper.getEndpoint(getApplicationContext()) + Constants.TOKEN_REQUEST_URL + "?uuid=" + uuid + "&token=" + token)
                     .get()
                     .build();
 

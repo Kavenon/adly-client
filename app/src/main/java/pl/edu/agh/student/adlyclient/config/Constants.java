@@ -15,8 +15,10 @@ public interface Constants {
 
     String NOTIFICATION_OBJ_EXTRAS_KEY = "_adly_nobj";
     String SURVEY_OBJ_EXTRAS_KEY = "_adly_sobj";
+    String ADLY_URL_KEY = "_adly_url";
 
     String SURVEY_CLIENT_URL = "/profile/survey/client";
     Integer welcomeSurveyId = 32; // todo: read system surveys?
     String WELCOME_SURVEY_STAT = "adly.welcome.survey.stat";
+
 }

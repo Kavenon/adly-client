@@ -17,6 +17,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import pl.edu.agh.student.adlyclient.R;
 import pl.edu.agh.student.adlyclient.config.Constants;
+import pl.edu.agh.student.adlyclient.helpers.AdlyUrlHelper;
 import pl.edu.agh.student.adlyclient.notification.handlers.SimpleNotificationHandler;
 import pl.edu.agh.student.adlyclient.notification.handlers.SurveyFormNotificationHandler;
 import pl.edu.agh.student.adlyclient.notification.handlers.UrlNotificationHandler;
@@ -56,7 +57,7 @@ public class NotificationClickedReceiver extends BroadcastReceiver {
         private String getPayload(Long notificationId) {
             try {
                 Request request = new Request.Builder()
-                        .url(context.getString(R.string.adly_url) + Constants.PAYLOAD_REQUEST_URL + "?_anid=" + notificationId)
+                        .url(AdlyUrlHelper.getEndpoint(context) + Constants.PAYLOAD_REQUEST_URL + "?_anid=" + notificationId)
                         .get()
                         .build();
 
