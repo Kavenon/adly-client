@@ -31,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
 
         UuidService.getInstance(getApplicationContext());
 
-        if(!SharedPreferenceHelper.getSharedPreferenceBoolean(getApplicationContext(), Constants.WELCOME_SURVEY_STAT, false)){
+        String storedUuid = SharedPreferenceHelper.getSharedPreferenceString(getApplicationContext(), "adly.uuid", null);
+
+        if(storedUuid != null && !SharedPreferenceHelper.getSharedPreferenceBoolean(getApplicationContext(), Constants.WELCOME_SURVEY_STAT, false)){
             WelcomeSurveyService.execute(getApplicationContext());
         }
 
