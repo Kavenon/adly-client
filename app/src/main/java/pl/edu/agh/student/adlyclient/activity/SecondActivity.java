@@ -6,13 +6,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -24,7 +20,7 @@ import pl.edu.agh.student.adlyclient.config.Constants;
 import pl.edu.agh.student.adlyclient.helpers.SharedPreferenceHelper;
 import pl.edu.agh.student.adlyclient.survey.WelcomeSurveyService;
 
-public class MainActivity extends Activity {
+public class SecondActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +30,9 @@ public class MainActivity extends Activity {
 
         UuidService.getInstance(getApplicationContext());
 
-        if(!SharedPreferenceHelper.getSharedPreferenceBoolean(getApplicationContext(), Constants.WELCOME_SURVEY_STAT, false)){
+        String storedUuid = SharedPreferenceHelper.getSharedPreferenceString(getApplicationContext(), "adly.uuid", null);
+
+        if(storedUuid != null && !SharedPreferenceHelper.getSharedPreferenceBoolean(getApplicationContext(), Constants.WELCOME_SURVEY_STAT, false)){
             WelcomeSurveyService.execute(getApplicationContext());
         }
 
@@ -51,12 +49,12 @@ public class MainActivity extends Activity {
     }
 
     private void permissions() {
-        if (checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION,getApplicationContext(),MainActivity.this)) {
+        if (checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION,getApplicationContext(),SecondActivity.this)) {
             Intent intent = new Intent(this, BeaconMonitorService.class);
             startService(intent);
         }
         else {
-            requestPermission(android.Manifest.permission.ACCESS_FINE_LOCATION,0,getApplicationContext(),MainActivity.this);
+            requestPermission(android.Manifest.permission.ACCESS_FINE_LOCATION,0,getApplicationContext(),SecondActivity.this);
         }
     }
 

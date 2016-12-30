@@ -25,6 +25,7 @@ import pl.edu.agh.student.adlyclient.R;
 import pl.edu.agh.student.adlyclient.UuidService;
 import pl.edu.agh.student.adlyclient.config.Constants;
 import pl.edu.agh.student.adlyclient.helpers.AdlyUrlHelper;
+import pl.edu.agh.student.adlyclient.helpers.SharedPreferenceHelper;
 import pl.edu.agh.student.adlyclient.networking.AsyncGet;
 
 public class BeaconMonitorService extends Service {
@@ -64,6 +65,11 @@ public class BeaconMonitorService extends Service {
             public void onIBeaconsUpdated(List<IBeaconDevice> iBeacons, IBeaconRegion region) {
 
                 IBeaconDevice closest = Collections.min(iBeacons, comparator);
+
+                String storedUuid = SharedPreferenceHelper.getSharedPreferenceString(getApplicationContext(), "adly.uuid", null);
+                if(storedUuid == null){
+                    return;
+                }
 
                 if(closest.getDistance() > r.getInteger(R.integer.beacon_minimum_distance)){
                     Log.i(Constants.TAG, "Closest beacon is too far " + closest.getDistance() + " " + closest.getUniqueId());
